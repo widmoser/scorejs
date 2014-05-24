@@ -1,3 +1,6 @@
 # IDEA
 .idea
 *.iml
+
+# npm
+lib/node_modules
