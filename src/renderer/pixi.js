@@ -19,6 +19,9 @@ define(["renderer/gscore", "pixi"], function(gscore, pixi) {
         // create a renderer instance.
         var renderer = pixi.autoDetectRenderer(width, height, view);
 
+        var graphics = new pixi.Graphics();
+        stage.addChild(graphics);
+
         requestAnimFrame(animate);
 
         function animate() {
@@ -27,30 +30,35 @@ define(["renderer/gscore", "pixi"], function(gscore, pixi) {
 
             // render the stage
             renderer.render(stage);
-
         }
 
-        gscore.Staff.prototype.draw = function(gobj) {
-
-        }
-
-        /**
-         * Renders a graphical score
-         * @param target The canvas element to draw on
-         * @param gscore The graphical representation of the score
-         * @param options A set of options that define parameters for drawing.
-         */
-        this.render = function(target, score, options) {
-            score.objects.forEach(function(gobj) {
-                this.draw(gobj);
-            });
-        }
-
-        this.draw = function(gobj) {
-            gobj
+        gscore.Staff.prototype.draw = function() {
+            graphics.lineStyle(1, 0x000000);
+            var y = this.y;
+            var yIncr = this.height / 5;
+            for (var i = 0; i < 5; ++i)
+            {
+                graphics.moveTo(this.x, y);
+                graphics.lineTo(width, y);
+                y += yIncr;
+            }
         }
 
     }
+
+
+
+    /**
+     * Renders a graphical score
+     * @param target The canvas element to draw on
+     * @param gscore The graphical representation of the score
+     * @param options A set of options that define parameters for drawing.
+     */
+    PixiRenderer.prototype.render = function(score) {
+        score.objects.forEach(function(gobj) {
+            gobj.draw();
+        });
+    };
 
     return {
         PixiRenderer : PixiRenderer

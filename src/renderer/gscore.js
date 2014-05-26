@@ -12,7 +12,7 @@ define([], function () {
      * @param height Height of the bounding box containing the object.
      * @constructor
      */
-    function Object(x, y, width, height)
+    function GraphicalObject(x, y, width, height)
     {
         this.x = x;
         this.y = y;
@@ -21,9 +21,10 @@ define([], function () {
     }
 
     function Staff(x, y, width, height) {
-        Object.call(x, y, width, height);
+        GraphicalObject.call(this, x, y, width, height);
     }
-    Staff.prototype = new Object;
+    Staff.prototype = Object.create(GraphicalObject.prototype);
+    Staff.prototype.constructor = Staff;
 
     /**
      * Graphical representation of the score. It's a collection of graphical objects.
