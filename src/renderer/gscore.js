@@ -8,23 +8,27 @@ define([], function () {
      * Base class for all graphical objects. It has properties to specify the size and location of an object.
      * @param x Position along the x Axis.
      * @param y Position along the y Axis.
-     * @param width Width of the bounding box containing the object.
-     * @param height Height of the bounding box containing the object.
      * @constructor
      */
-    function GraphicalObject(x, y, width, height)
+    function GraphicalObject(x, y)
     {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
     }
 
-    function Staff(x, y, width, height) {
-        GraphicalObject.call(this, x, y, width, height);
+    function Staff(x, y, height) {
+        GraphicalObject.call(this, x, y);
+        this.height = height;
     }
     Staff.prototype = Object.create(GraphicalObject.prototype);
     Staff.prototype.constructor = Staff;
+
+    function GClef(x, y, size) {
+        GraphicalObject.call(this, x, y);
+        this.size = size;
+    }
+    GClef.prototype = Object.create(GraphicalObject.prototype);
+    GClef.prototype.constructor = GClef;
 
     /**
      * Graphical representation of the score. It's a collection of graphical objects.
@@ -39,6 +43,7 @@ define([], function () {
     return {
         Object : Object,
         Staff : Staff,
+        GClef : GClef,
         Score : Score
     };
 });
