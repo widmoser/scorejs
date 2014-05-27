@@ -44,8 +44,8 @@ define(["renderer/gscore", "pixi"], function(gscore, pixi) {
             }
         }
 
-        gscore.GClef.prototype.draw = function() {
-            var text = new pixi.Text("\uE050", {font: this.size + "px bravura", fill:"black"});
+        gscore.FontObject.prototype.draw = function() {
+            var text = new pixi.Text(this.character, {font: "30px bravura", fill:"black"});
             var container = new pixi.DisplayObjectContainer();
             container.addChild(text);
             container.x = this.x;

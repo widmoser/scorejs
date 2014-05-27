@@ -2,7 +2,7 @@
  * Created by widmoser on 24/05/14.
  */
 
-define([], function () {
+define(['underscore'], function (_) {
 
     /**
      * Base class for all graphical objects. It has properties to specify the size and location of an object.
@@ -23,12 +23,31 @@ define([], function () {
     Staff.prototype = Object.create(GraphicalObject.prototype);
     Staff.prototype.constructor = Staff;
 
-    function GClef(x, y, size) {
+    function FontObject(x, y, character) {
         GraphicalObject.call(this, x, y);
-        this.size = size;
+        this.character = character;
     }
-    GClef.prototype = Object.create(GraphicalObject.prototype);
+    FontObject.prototype = Object.create(GraphicalObject.prototype);
+    FontObject.prototype.constructor = FontObject;
+
+    function GClef(x, y) {
+        FontObject.call(this, x, y, "\uE050");
+    }
+    GClef.prototype = Object.create(FontObject.prototype);
     GClef.prototype.constructor = GClef;
+
+    var NoteHeads = {
+        black : "\uE0A4"
+    }
+
+    function NoteHead(x, y, type) {
+        if (_.isUndefined(type)) {
+            type = NoteHeads.black;
+        }
+        FontObject.call(this, x, y, type);
+    }
+    NoteHead.prototype = Object.create(FontObject.prototype);
+    NoteHead.prototype.constructor = NoteHead;
 
     /**
      * Graphical representation of the score. It's a collection of graphical objects.
@@ -44,6 +63,9 @@ define([], function () {
         Object : Object,
         Staff : Staff,
         GClef : GClef,
+        FontObject : FontObject,
+        NoteHeads : NoteHeads,
+        NoteHead : NoteHead,
         Score : Score
     };
 });
